@@ -77,7 +77,7 @@ export const getUserDetails = createAsyncThunk(
   async (arg, { getState, rejectWithValue }) => {
     try {
       const { user } = getState() as { user: UserState };
-      const { data } = await api.get(`user/${user.userId}`, config);
+      const { data } = await api.get(`user/${user.userId}`);
       return data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -92,12 +92,6 @@ export const getUserDetails = createAsyncThunk(
 
 const userToken = localStorage.getItem('userToken') || null;
 const userId = localStorage.getItem('userId') || null;
-
-export const config = {
-  headers: {
-    Authorization: `Bearer ${userToken}`,
-  },
-};
 
 const initialState: UserState = {
   loading: false,

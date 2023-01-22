@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { NavigateFunction } from 'react-router-dom';
 import { api } from '../../api/api';
-import { config } from '../user/userSlice';
 
 export type Customer = {
   _id?: string;
@@ -30,10 +29,7 @@ export const getCustomers = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const { data } = await api.get(
-        `/customers?page=${page}&limit=${limit}`,
-        config,
-      );
+      const { data } = await api.get(`/customers?page=${page}&limit=${limit}`);
       return data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -50,7 +46,7 @@ export const getCustomerDetails = createAsyncThunk(
   'customer/getCustomerDetails',
   async (id: string, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/customers/${id}`, config);
+      const { data } = await api.get(`/customers/${id}`);
       return data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -67,10 +63,7 @@ export const searchByCompany = createAsyncThunk(
   'customer/searchByCompany',
   async ({ company }: { company: string }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(
-        `/customers/search?company=${company}`,
-        config,
-      );
+      const { data } = await api.get(`/customers/search?company=${company}`);
       return data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -90,7 +83,7 @@ export const createCustomer = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const { data } = await api.post('/customers', customer, config);
+      const { data } = await api.post('/customers', customer);
       navigate('/customers');
       return data;
     } catch (error) {
@@ -115,7 +108,7 @@ export const editCustomer = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const { data } = await api.patch(`/customers/${id}`, customer, config);
+      const { data } = await api.patch(`/customers/${id}`, customer);
       navigate('/customers');
       return data;
     } catch (error) {
@@ -133,7 +126,7 @@ export const deleteCustomer = createAsyncThunk(
   'customer/deleteCustomer',
   async (id: string, { rejectWithValue }) => {
     try {
-      await api.delete(`customers/${id}`, config);
+      await api.delete(`customers/${id}`);
       return id;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
