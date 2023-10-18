@@ -1,6 +1,6 @@
 ## Description
 
-Client app for Customer Manager, React and Redux Toolkit
+Client app for Customer Manager
 
 ## Instalation and usage
 
